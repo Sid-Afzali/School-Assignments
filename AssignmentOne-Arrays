@@ -1,0 +1,104 @@
+/****
+ * Name: Sid 
+ * Program Description: This program gets the exam result of any number of
+ * students with their names(method one).
+ * Then, by using four methods, calculates the semester grade for each
+ * student(method two) as well as
+ * the average score of each exam(method three).
+ * Finally, the program, by using method four, prints all the data(results,
+ * semester grades ,and average score for each exam)
+ ****/
+
+public class AssignmentOne {
+
+    public static int[][] marks;
+    public static double[] ExamAverage;
+    public static double[] StudentsMark;
+    public static String[] StudentsName;
+
+    public static void method1() {
+
+        StudentsName = new String[] { "Joe Smith", "Tommy Jones", "Sara Lee", "Bob Fowler", "Jane Doe" };
+        marks = new int[][] { { 100, 100, 100, 100 }, { 0, 0, 0, 0 }, { 70, 70, 70, 70 }, { 50, 60, 70, 80 },
+                { 63, 73, 71, 77 } };
+
+        // To verify all the scores have been entered
+        /*
+         * for (int i = 0; i < marks.length; i++) {
+         * System.out.print(StudentsName[i]);
+         * for (int j = 0; j < marks[0].length; j++)
+         * System.out.print("\t" + marks[i][j] + "\t");
+         * System.out.println();
+         * }
+         */
+
+    }
+
+    public static void method2(int NumberOfStudents) {
+
+        StudentsMark = new double[NumberOfStudents];
+        for (int student = 0; student < StudentsMark.length; student++) {
+            // makes it to work for any number of students
+            for (int test = 0; test < marks[0].length; test++) {
+                if (test <= marks[0].length - 2) {
+                    StudentsMark[student] += (marks[student][test] * 0.2);
+                } else if (test == marks[0].length - 1) {
+                    StudentsMark[student] += (marks[student][test] * 0.4);
+                }
+            }
+
+        }
+
+    }
+
+    public static void method3(int NumberOfExams) {
+        double SemesterAverage = 0;
+        ExamAverage = new double[NumberOfExams];
+        for (int test = 0; test < marks[0].length; test++) {
+            for (int student = 0; student < marks.length; student++) {
+                ExamAverage[test] += marks[student][test];
+            }
+            // make sure you have done the average correctly
+
+            // something here is not correct
+            // average for semester should be 62.04 which is not.
+            ExamAverage[test] = ExamAverage[test] / marks.length;
+            for (int student = 0; student < marks.length; student++) {
+                SemesterAverage += StudentsMark[student];
+                System.out.println("counting the score for student number " + student);
+
+            }
+
+        }
+        SemesterAverage = SemesterAverage / StudentsMark.length;
+        System.out.println("Semester Average is " + SemesterAverage);
+    }
+
+
+    public static void method4() {
+        System.out.printf("\n");
+        System.out.printf("Name \t\t\t Marks(out of 100)\n");
+        System.out.printf("\t\tTest1  Test2   Test3  Final  Semester\n");
+        for (int student = 0; student < marks.length; student++) {
+            System.out.printf("%-1s\t", StudentsName[student]);
+            for (int test = 0; test < marks[0].length; test++) {
+                System.out.printf("%d \t", marks[student][test]);
+
+            }
+            System.out.printf("%3.1f\t", StudentsMark[student]);
+            System.out.println();
+        }
+        System.out.printf("Average");
+        for (int i = 0; i < ExamAverage.length; i++) {
+            System.out.printf(" \t%2.1f  ", ExamAverage[i]);
+        }
+
+    }
+
+    public static void main(String[] args) {
+        method1();
+        method2(5);
+        method3(5);
+        method4();
+    }
+}
